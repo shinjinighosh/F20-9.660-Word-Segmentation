@@ -1,0 +1,11 @@
+November 5 - Meeting with Tiwa
+
+Current LMs are open vocabulary - so they can express any word. So we need to specify
+the content of our language model's vocab - otherwise, calls it <UNK>. Humans solve the problem
+of segmenting words from speech.
+
+Most LMs start by looking at a doc full of characters and iteratively merge into larger and
+larger chunks that looks like words, then stop.
+
+This project is taking a closer look at the way LMs are solving the problem and characterising
+it in ways that we think humans solve this problem.
