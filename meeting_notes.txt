@@ -9,3 +9,10 @@ larger chunks that looks like words, then stop.
 
 This project is taking a closer look at the way LMs are solving the problem and characterising
 it in ways that we think humans solve this problem.
+
+How to improve upon word segmentation?
+- look at
+- byte-pair encoding: iteratively merging the most frequent characters into larger and larger
+chunks
+- word-piece encoding: iterative merging based on the effect they have on LM estimates in the corpus - morpheme-level PCFG (good because it takes into account tree structure and captures the language as inference thing), neurosymbolic models, etc.
+- take a tiny NLM and distil knowledge from RNNG or PCFG, word encoding, compare resultant schemes
