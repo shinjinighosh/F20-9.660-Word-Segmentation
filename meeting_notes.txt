@@ -16,3 +16,4 @@ How to improve upon word segmentation?
 chunks
 - word-piece encoding: iterative merging based on the effect they have on LM estimates in the corpus - morpheme-level PCFG (good because it takes into account tree structure and captures the language as inference thing), neurosymbolic models, etc.
 - take a tiny NLM and distil knowledge from RNNG or PCFG, word encoding, compare resultant schemes
+- proposing an encoding scheme is significant work
