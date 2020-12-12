@@ -1,5 +1,5 @@
 from math import log
-import random 
+import random
 from helper_classes import Lexicon, Phonemes
 
 
@@ -8,6 +8,7 @@ class Segmentation:
         self.lexicon = Lexicon()
         self.phonemes = Phonemes()
         pass
+
     def read_corpus(self, corpus):
         with open(corpus, mode="r") as f:
             utterances = f.read().splitlines()
@@ -61,38 +62,38 @@ class Segmentation:
         # print(self.store)
         return bestScore, bestUtterance
 
-    def _evalUtterance(self, u): 
-        n = len(u) #u is from 0 to n
-        bestCost = [0 for _ in range(n)] #from 0 to n
-        previousBoundary = [None for _ in range(n)] #from 0 to n 
+    def _evalUtterance(self, u):
+        n = len(u)  # u is from 0 to n
+        bestCost = [0 for _ in range(n)]  # from 0 to n
+        previousBoundary = [None for _ in range(n)]  # from 0 to n
         if n == 0:
-            return 0, u 
+            return 0, u
         for i in range(n):
-            bestCost[i] = self.evalWord(u[:i+1])
+            bestCost[i] = self.evalWord(u[:i + 1])
             previousBoundary[i] = -1
-            for j in range(i+1):
+            for j in range(i + 1):
                 # prevWord = u[previousBoundary[j]+1:j+1]
                 # if prevWord[j] >= 0:
-                cost = bestCost[j] + self.evalWord(u[j+1:i+1])
+                cost = bestCost[j] + self.evalWord(u[j + 1:i + 1])
                 if cost < bestCost[i]:
-                    bestCost[i] = cost 
+                    bestCost[i] = cost
                     previousBoundary[i] = j
 
         i = n - 1
         print("i", i)
         final_utterance = ""
         all_stops = []
-        curr = n-1
-        last  = None
+        curr = n - 1
+        last = None
         print(previousBoundary)
-        if any(val!= -1 for val in previousBoundary):
+        if any(val != -1 for val in previousBoundary):
             raise ValueError("yay!")
         # print(bestCost)
         while True:
             last = previousBoundary[curr]
             if last < 0: break
-            final_utterance =  u[last:curr+1] + "#" + final_utterance
-            curr = last 
+            final_utterance = u[last:curr + 1] + "#" + final_utterance
+            curr = last
             # final_utterance = 
             # all_stops.append(i)
             # i = previousBoundary[i]
@@ -102,8 +103,7 @@ class Segmentation:
         #     print(i)
         #     final_utterance = final_utterance + u[i] + "#"
         # final_utterance = final_utterance[:-1]
-        return bestCost[n-1], final_utterance
-        
+        return bestCost[n - 1], final_utterance
 
     def evalWord(self, w):
         # TODO: implement bigrams/trigrams
@@ -111,21 +111,21 @@ class Segmentation:
         r = self.lexicon.size()
         n = self.lexicon.sumFrequencies()
         f = self.lexicon.frequency(w)
-        cost = 0 
+        cost = 0
         # Unigrams
         if f != 0 and r != 0:
-            cost += -log(f/(n+r))
+            cost += -log(f / (n + r))
         elif r != 0:
-            cost += -log(r/n+r)
+            cost += -log(r / n + r)
 
         # Phonemes
         P_0 = self.phonemes.relativeFrequency("#")
-        prob = P_0/(1-P_0)
+        prob = P_0 / (1 - P_0)
         for i in range(len(w)):
             if w[i] != " ":
-                prob *= self.phonemes.relativeFrequency(w[i]) #TODO: in paper/official code they do it as w[i].phon()
+                prob *= self.phonemes.relativeFrequency(w[i])  # TODO: in paper/official code they do it as w[i].phon()
         cost += -log(prob)
-        return cost 
+        return cost
         # if self.lexicon.frequency(w) == 0: #unseen
         #     if self.lexicon.size() + self.lexicon.sumFrequencies() == 0: #first utterance
         #         print("empty")

@@ -69,6 +69,7 @@ def get_data(name, sep='\t'):
 
 def handle_unknown_token(key, N):
     """Estimate the probability of an unknown word."""
+    # Laplace additive smoothing
     return 10.0/(N * 10**len(key))
 
 N = 1024908267229 # Number of tokens
