@@ -1,0 +1,68 @@
+>>> from segment_shinjini import *
+
+################ Segmentation (p. 225-226)
+
+>>> segment('choosespain')
+['choose', 'spain']
+>>> segment('thisisatest')
+['this', 'is', 'a', 'test']
+>>> segment('wheninthecourseofhumaneventsitbecomesnecessary')
+['when', 'in', 'the', 'course', 'of', 'human', 'events', 'it', 'becomes', 'necessary']
+>>> segment('whorepresents')
+['who', 'represents']
+>>> segment('expertsexchange')
+['experts', 'exchange']
+>>> segment('speedofart')
+['speed', 'of', 'art']
+>>> segment('nowisthetimeforallgood')
+['now', 'is', 'the', 'time', 'for', 'all', 'good']
+>>> segment('itisatruthuniversallyacknowledged')
+['it', 'is', 'a', 'truth', 'universally', 'acknowledged']
+>>> segment('itwasabrightcolddayinaprilandtheclockswerestrikingthirteen')
+['it', 'was', 'a', 'bright', 'cold', 'day', 'in', 'april', 'and', 'the', 'clocks', 'were', 'striking', 'thirteen']
+>>> segment('itwasthebestoftimesitwastheworstoftimesitwastheageofwisdomitwastheageoffoolishness')
+['it', 'was', 'the', 'best', 'of', 'times', 'it', 'was', 'the', 'worst', 'of', 'times', 'it', 'was', 'the', 'age', 'of', 'wisdom', 'it', 'was', 'the', 'age', 'of', 'foolishness']
+>>> segment('asgregorsamsaawokeonemorningfromuneasydreamshefoundhimselftransformedinhisbedintoagiganticinsect')
+['as', 'gregor', 'samsa', 'awoke', 'one', 'morning', 'from', 'uneasy', 'dreams', 'he', 'found', 'himself', 'transformed', 'in', 'his', 'bed', 'into', 'a', 'gigantic', 'insect']
+>>> segment('inaholeinthegroundtherelivedahobbitnotanastydirtywetholefilledwiththeendsofwormsandanoozysmellnoryetadrybaresandyholewithnothinginittositdownonortoeatitwasahobbitholeandthatmeanscomfort')
+['in', 'a', 'hole', 'in', 'the', 'ground', 'there', 'lived', 'a', 'hobbit', 'not', 'a', 'nasty', 'dirty', 'wet', 'hole', 'filled', 'with', 'the', 'ends', 'of', 'worms', 'and', 'an', 'oozy', 'smell', 'nor', 'yet', 'a', 'dry', 'bare', 'sandy', 'hole', 'with', 'nothing', 'in', 'it', 'to', 'sitdown', 'on', 'or', 'to', 'eat', 'it', 'was', 'a', 'hobbit', 'hole', 'and', 'that', 'means', 'comfort']
+>>> segment('faroutintheunchartedbackwatersoftheunfashionableendofthewesternspiralarmofthegalaxyliesasmallunregardedyellowsun')
+['far', 'out', 'in', 'the', 'uncharted', 'backwaters', 'of', 'the', 'unfashionable', 'end', 'of', 'the', 'western', 'spiral', 'arm', 'of', 'the', 'galaxy', 'lies', 'a', 'small', 'un', 'regarded', 'yellow', 'sun']
+
+>>> Pw['unregarded'] = 7557; segment.memo.clear(); segment('faroutintheunchartedbackwatersoftheunfashionableendofthewesternspiralarmofthegalaxyliesasmallunregardedyellowsun')
+['far', 'out', 'in', 'the', 'uncharted', 'backwaters', 'of', 'the', 'unfashionable', 'end', 'of', 'the', 'western', 'spiral', 'arm', 'of', 'the', 'galaxy', 'lies', 'a', 'small', 'unregarded', 'yellow', 'sun']
+
+>>> cPw('sit', 'to')*cPw('down', 'sit') / cPw('sitdown', 'to')
+1698.0002330199263
+
+## Now let's try segment2
+
+>>> def seg2(s): return segment2(s)[1]
+>>> seg2('choosespain')
+['choose', 'spain']
+>>> seg2('thisisatest')
+['this', 'is', 'a', 'test']
+>>> seg2('wheninthecourseofhumaneventsitbecomesnecessary')
+['when', 'in', 'the', 'course', 'of', 'human', 'events', 'it', 'becomes', 'necessary']
+>>> seg2('whorepresents')
+['who', 'represents']
+>>> seg2('expertsexchange')
+['experts', 'exchange']
+>>> seg2('speedofart')
+['speed', 'of', 'art']
+>>> seg2('nowisthetimeforallgood')
+['now', 'is', 'the', 'time', 'for', 'all', 'good']
+>>> seg2('itisatruthuniversallyacknowledged')
+['it', 'is', 'a', 'truth', 'universally', 'acknowledged']
+>>> seg2('itwasabrightcolddayinaprilandtheclockswerestrikingthirteen')
+['it', 'was', 'a', 'bright', 'cold', 'day', 'in', 'april', 'and', 'the', 'clocks', 'were', 'striking', 'thirteen']
+>>> seg2('itwasthebestoftimesitwastheworstoftimesitwastheageofwisdomitwastheageoffoolishness')
+['it', 'was', 'the', 'best', 'of', 'times', 'it', 'was', 'the', 'worst', 'of', 'times', 'it', 'was', 'the', 'age', 'of', 'wisdom', 'it', 'was', 'the', 'age', 'of', 'foolishness']
+>>> seg2('asgregorsamsaawokeonemorningfromuneasydreamshefoundhimselftransformedinhisbedintoagiganticinsect')
+['as', 'gregor', 'samsa', 'awoke', 'one', 'morning', 'from', 'uneasy', 'dreams', 'he', 'found', 'himself', 'transformed', 'in', 'his', 'bed', 'into', 'a', 'gigantic', 'insect']
+>>> seg2('inaholeinthegroundtherelivedahobbitnotanastydirtywetholefilledwiththeendsofwormsandanoozysmellnoryetadrybaresandyholewithnothinginittositdownonortoeatitwasahobbitholeandthatmeanscomfort')
+['in', 'a', 'hole', 'in', 'the', 'ground', 'there', 'lived', 'a', 'hobbit', 'not', 'a', 'nasty', 'dirty', 'wet', 'hole', 'filled', 'with', 'the', 'ends', 'of', 'worms', 'and', 'an', 'oozy', 'smell', 'nor', 'yet', 'a', 'dry', 'bare', 'sandy', 'hole', 'with', 'nothing', 'in', 'it', 'to', 'sit', 'down', 'on', 'or', 'to', 'eat', 'it', 'was', 'a', 'hobbit', 'hole', 'and', 'that', 'means', 'comfort']
+### Notice that segment2 got "sit down" right, where segment did not.
+### It gets "unregarded" right only when Pw['unregarded'] is given a value.
+>>> seg2('faroutintheunchartedbackwatersoftheunfashionableendofthewesternspiralarmofthegalaxyliesasmallunregardedyellowsun')
+['far', 'out', 'in', 'the', 'uncharted', 'backwaters', 'of', 'the', 'unfashionable', 'end', 'of', 'the', 'western', 'spiral', 'arm', 'of', 'the', 'galaxy', 'lies', 'a', 'small', 'unregarded', 'yellow', 'sun']

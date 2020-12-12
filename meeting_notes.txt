@@ -17,3 +17,9 @@ chunks
 - word-piece encoding: iterative merging based on the effect they have on LM estimates in the corpus - morpheme-level PCFG (good because it takes into account tree structure and captures the language as inference thing), neurosymbolic models, etc.
 - take a tiny NLM and distil knowledge from RNNG or PCFG, word encoding, compare resultant schemes
 - proposing an encoding scheme is significant work
+
+Plan:
+1. Implement and improve Norvig's model
+2. Look into 9.19 notes and n-gram models there
+3. test on new data?? - make human data
+4. other metrics than probability - surprisal? human reading time?
