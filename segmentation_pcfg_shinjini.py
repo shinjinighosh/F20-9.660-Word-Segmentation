@@ -9,7 +9,7 @@ from collections import defaultdict
 import math
 import os
 
-f_grammar = os.path.join("test", "08-grammar.txt")
+f_grammar = os.path.join("test", "saffran_grammar.txt")
 
 non_terminal = []
 preterm = defaultdict(list)
@@ -29,7 +29,7 @@ for rule in grammar_file:
         non_terminal.insert(index, [lhs, rhs_symbols[0], rhs_symbols[1], math.log(prob)])
 
 # add pre-terminals
-f_text = os.path.join("test", "08-input.txt")
+f_text = os.path.join("test", "saffran_input.txt")
 text_file = codecs.open(f_text, 'r', 'utf-8')
 
 # init best score with lowest level
