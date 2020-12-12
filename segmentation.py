@@ -1,16 +1,20 @@
 from math import log
 from helper_classes import Lexicon, Phonemes
+
+
 class Segmentation:
     def __init__(self):
         self.lexicon = Lexicon()
         self.phonemes = Phonemes()
-        pass 
+        pass
+
     def start(self, utterances):
         for utterance in utterances:
             bestScore, bestUtterance = self.evalUtterance(utterance)
             print(f"\nFor #{utterance}#, the segmentation is #{bestUtterance}# with a score of {bestScore} \n")
             # print(self.lexicon.words_freq)
         print("Finished going through the corpus!")
+
     def evalUtterance(self, u):
         self.store = dict()
         bestScore, bestUtterance = self._evalUtterance(u)
@@ -18,6 +22,7 @@ class Segmentation:
         self.update_lexicon(bestUtterance)
         self.update_phonemes(bestUtterance)
         return bestScore, bestUtterance
+
     def _evalUtterance(self, u):
         if len(u) > 3:
             return float('inf'), u
@@ -29,13 +34,13 @@ class Segmentation:
         #     return float('inf'), ""
         n = len(u) - 1
         print(n)
-        bestSegPoint = n 
+        bestSegPoint = n
         bestScore = self.evalWord(u)
         print(f"initial best score: {bestScore}")
         bestUtterance = u
-        for i in range(n): #finding the segmenttion with smallest score
-            subUtterance = u[:i+1]
-            word = u[i+1:]
+        for i in range(n):  # finding the segmenttion with smallest score
+            subUtterance = u[:i + 1]
+            word = u[i + 1:]
             prev_score, prev_subUtterance = self._evalUtterance(subUtterance)
             score = prev_score + self.evalWord(word)
             print(f"Trying {subUtterance}//{word}")
@@ -43,12 +48,13 @@ class Segmentation:
             if score < bestScore:
                 # print("UAU")
                 bestScore = score
-                bestSegPoint = i 
-                bestUtterance = prev_subUtterance + "#" + word #inserting word boundary
+                bestSegPoint = i
+                bestUtterance = prev_subUtterance + "#" + word  # inserting word boundary
         # new_utterance = 
         self.store[u] = bestScore, bestUtterance
         # print(self.store)
         return bestScore, bestUtterance
+
     # def _evalUtterance(self, u):
     #     n = len(u) - 1
     #     bestCost = [0 for _ in range(n+1)]
@@ -60,33 +66,35 @@ class Segmentation:
 
     def evalWord(self, w):
         # return 0
-        score = 0 
-        if self.lexicon.frequency(w) == 0: #unseen
-            if self.lexicon.size() + self.lexicon.sumFrequencies() == 0: #first utterance
+        score = 0
+        if self.lexicon.frequency(w) == 0:  # unseen
+            if self.lexicon.size() + self.lexicon.sumFrequencies() == 0:  # first utterance
                 print("empty")
                 return float('inf')
             escape = self.lexicon.size() / (self.lexicon.size() + self.lexicon.sumFrequencies())
             P_0 = self.phonemes.relativeFrequency("#")
-            score = -log(escape) -log(P_0/(1-P_0))
+            score = -log(escape) - log(P_0 / (1 - P_0))
             for i in range(len(w)):
                 if w[i] != " ":
                     score -= log(self.phonemes.relativeFrequency(w[i]))
-        else: # already seen 
+        else:  # already seen
             P_w = self.lexicon.frequency(w) / (self.lexicon.size() + self.lexicon.sumFrequencies())
             score = -log(P_w)
         return score
+
     def update_lexicon(self, new_utterance):
         all_words = new_utterance.split("#")
         for word in all_words:
             self.lexicon.update_word(word)
-        return 
+        return
+
     def update_phonemes(self, new_utterance):
         for char in new_utterance:
             if char != " ":
                 self.phonemes.update_phoneme(char)
     # def insertWordBoundary(self, u, bestSegPoint):
 
-         
+
 if __name__ == "__main__":
     seg = Segmentation()
     utterances = [
