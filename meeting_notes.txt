@@ -23,3 +23,16 @@ Plan:
 2. Look into 9.19 notes and n-gram models there
 3. test on new data?? - make human data
 4. other metrics than probability - surprisal? human reading time?
+
+Meeting 12/12
+describe PCFG + char level PCFG/n-gram/small NN
+    - captures word segmentation as inference
+    - we made one, analysed head-to-head with a statistical model
+word level RNN
+word segmentation as inference - Goldwater (structure algorithm)
+how is this model different from word piece
+how do babies do it from speech without existing vocab (like this model)
+PCFG word level inference
+compositionality, structure
+probmods - PCFG, HMMs
+word learning class - compare to Pw, ngram model
