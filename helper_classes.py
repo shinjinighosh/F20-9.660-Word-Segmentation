@@ -46,10 +46,10 @@ class Phonemes:
         self.map = {phoneme: 1 for phoneme in all_phonemes}  # initially uniform
 
     def relativeFrequency(self, phoneme):
-        assert phoneme in self.map, f"{phoneme} is not a valid phoneme!"
+        assert phoneme in self.map, f"#{phoneme}# is not a valid phoneme!, len={len(phoneme)}"
         return self.map[phoneme] / sum(val for val in self.map.values())
 
     def update_phoneme(self, phoneme):
-        assert phoneme in self.map, f"{phoneme} is not a valid phoneme!"
+        assert phoneme in self.map, f"#{phoneme}# is not a valid phoneme!, len={len(phoneme)}"
         self.map[phoneme] += 1
         # print(self.map)
