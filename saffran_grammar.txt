@@ -1,0 +1,15 @@
+Sentence	Words	1
+Words	Word Words	1
+Word	Syllables	1
+Syllables	Syllable Syllables	0.8
+Syllables	Syllable	0.2
+Syllable	tu	0.083
+Syllable	pi	0.168
+Syllable	ro	0.083
+Syllable	go	0.083
+Syllable	la	0.168
+Syllable	bu	0.083
+Syllable	da	0.083
+Syllable	ku	0.083
+Syllable	ti	0.083
+Syllable	do	0.083
