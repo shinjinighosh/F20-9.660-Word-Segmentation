@@ -2,7 +2,8 @@
 Artificially generate Saffran's data
 """
 import random 
-import nltk 
+import nltk
+from nltk import Nonterminal
 
 word_list = ["tiduko", "golatu", "daropi"]# "pabiku", 
 syllable_list = ["pa", "bi", "ku", "ti", "du", "ko", "go", "la", "tu", "da", "ro", "pi"] #TODO
