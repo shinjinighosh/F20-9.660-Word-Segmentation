@@ -29,7 +29,8 @@ print(len(pcfg_prods))
 # print(grammar.productions())
 
 parser = nltk.parse.BottomUpChartParser(grammar)
-sentence = "da ro pi go la tu"
+# sentence = "da ro pi go la tu"
+sentence = "da tu go pi la"
 tokens = sentence.split()
 
 parsers = [
