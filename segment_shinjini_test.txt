@@ -2,6 +2,14 @@
 
 ################ Segmentation (p. 225-226)
 
+>>> segment('helloiam')
+['hello', 'i', 'am']
+>>> segment('howareyoudoing')
+['how', 'are', 'you', 'doing']
+>>> segment('iamworkingonaproject')
+['i', 'am', 'working', 'on', 'a', 'project']
+>>> segment('onceuponatime')
+['once', 'upon', 'a', 'time']
 >>> segment('choosespain')
 ['choose', 'spain']
 >>> segment('thisisatest')

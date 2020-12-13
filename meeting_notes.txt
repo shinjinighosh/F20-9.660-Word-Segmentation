@@ -45,3 +45,4 @@ Jenny R. Saffran; Richard N. Aslin; Elissa L. Newport
 
 Future Work:
 1. Learn syllables - when encounter new syll, update PCFG
+2. Extend to other languages
