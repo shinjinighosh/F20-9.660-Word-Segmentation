@@ -42,3 +42,6 @@ References:
 Upendra Sapkota1, Barrett R. Bryant2, and Alan Sprague1
 2. Statistical Learning by 8-Month-Old Infants
 Jenny R. Saffran; Richard N. Aslin; Elissa L. Newport
+
+Future Work:
+1. Learn syllables - when encounter new syll, update PCFG
