@@ -41,48 +41,48 @@ parsers = [
     pchart.InsideChartParser(grammar, beam_size=len(tokens) + 1)
 ]
 
-# for tree in parser.parse(sentence):
-#     tree.pretty_print()
+for tree in parser.parse(tokens):
+    tree.pretty_print()
 
-times = []
-average_p = []
-num_parses = []
-all_parses = {}
-for parser in parsers:
-    print('\ns: %s\nparser: %s\ngrammar: %s' % (sentence, parser, grammar))
-    parser.trace(3)
-    t = time.time()
-    parses = parser.parse_all(tokens)
-    times.append(time.time() - t)
-    if parses:
-        lp = len(parses)
-        p = reduce(lambda a, b: a + b.prob(), parses, 0.0)
-    else:
-        p = 0
-    average_p.append(p)
-    num_parses.append(len(parses))
-    for p in parses:
-        all_parses[p.freeze()] = 1
-
-# Print summary statistics
-print()
-print('-------------------------+------------------------------------------')
-print('   Parser           Beam | Time (secs)   # Parses   Average P(parse)')
-print('-------------------------+------------------------------------------')
-for i in range(len(parsers)):
-    print('%19s %4d |%11.4f%11d%19.14f' % (parsers[i].__class__.__name__,
-                                           getattr(parsers[0], "beam_size", 0),
-                                           times[i],
-                                           num_parses[i],
-                                           average_p[i]))
-parses = all_parses.keys()
-if parses:
-    p = reduce(lambda a, b: a + b.prob(), parses, 0) / len(parses)
-else:
-    p = 0
-print('-------------------------+------------------------------------------')
-print('%19s      |%11s%11d%19.14f' % ('(All Parses)', 'n/a', len(parses), p))
-print()
-
-for parse in parses:
-    print(parse)
+# times = []
+# average_p = []
+# num_parses = []
+# all_parses = {}
+# for parser in parsers:
+#     print('\ns: %s\nparser: %s\ngrammar: %s' % (sentence, parser, grammar))
+#     parser.trace(3)
+#     t = time.time()
+#     parses = parser.parse_all(tokens)
+#     times.append(time.time() - t)
+#     if parses:
+#         lp = len(parses)
+#         p = reduce(lambda a, b: a + b.prob(), parses, 0.0)
+#     else:
+#         p = 0
+#     average_p.append(p)
+#     num_parses.append(len(parses))
+#     for p in parses:
+#         all_parses[p.freeze()] = 1
+#
+# # Print summary statistics
+# print()
+# print('-------------------------+------------------------------------------')
+# print('   Parser           Beam | Time (secs)   # Parses   Average P(parse)')
+# print('-------------------------+------------------------------------------')
+# for i in range(len(parsers)):
+#     print('%19s %4d |%11.4f%11d%19.14f' % (parsers[i].__class__.__name__,
+#                                            getattr(parsers[0], "beam_size", 0),
+#                                            times[i],
+#                                            num_parses[i],
+#                                            average_p[i]))
+# parses = all_parses.keys()
+# if parses:
+#     p = reduce(lambda a, b: a + b.prob(), parses, 0) / len(parses)
+# else:
+#     p = 0
+# print('-------------------------+------------------------------------------')
+# print('%19s      |%11s%11d%19.14f' % ('(All Parses)', 'n/a', len(parses), p))
+# print()
+#
+# for parse in parses:
+#     print(parse)
