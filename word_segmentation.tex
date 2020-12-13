@@ -213,7 +213,7 @@ We create a unit test file, with segmentations of text stream, both straightforw
 
 \subsection{Extra: Testing on Japanese}
 \vspace{-1mm}
-While English employs word spacing, which makes word segmentation from written corpora fairly easy, Japanese does not. This makes Japanese word segmentation a very important problem that every language model based in Japanese needs to face. We trained a bigram model on Wikipedia Japanese data and tested it on Zhang Lang's corpus to come up with the following word segmentation, a snapshot of which is in Fig~\ref{fig:figure6}.
+While English employs word spacing, which makes word segmentation from written corpora fairly easy, Japanese does not (and neither do Mandarin, Cantonese and agglutinative languages). This makes Japanese word segmentation a very important problem that every language model based in Japanese needs to face. We trained a bigram model on Wikipedia Japanese data and tested it on Zhang Lang's corpus to come up with the following word segmentation, a snapshot of which is in Fig~\ref{fig:figure6}.
 
 \begin{figure}[h!]
   \centering
@@ -230,16 +230,16 @@ Unlike the PCFG approach, \citet{Venkataraman}'s model relies more on the relati
 We use the same dataset as \citet{Brent}, that consists of transcripts made by Bernstein-Ratner (1987) of the CHILDES Database (MacWhinney and Snow 1985). This dataset consists of nine mothers talking freely to their children (13-21 months old), which we hope will give us a good estimate on how children understand a speech stream. 
 
 \subsection{Algorithm}
-To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig.~\ref{fig:fig7} represents what we would do if we were trying to segment the word $s = abcde$
+To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig~\ref{fig:fig7} represents what we would do if we were trying to segment the word $s = abcde$
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_seg_example.PNG}
-    \caption{Example to segment s = abcdde. Taken from \citet{Venkataraman}}
+    \caption{Example to segment s = abcde. Taken from \citet{Venkataraman}}
     \label{fig:fig7}
 \end{figure}
 
-where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig.~\ref{fig:fig8}.
+where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig~\ref{fig:fig8}.
 
 \begin{figure}[h!]
     \centering
