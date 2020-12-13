@@ -211,14 +211,14 @@ We create a unit test file, with segmentations of text stream, both straightforw
   \caption{Test Set Snapshot}~\label{fig:figure5}
 \end{figure}
 
-\subsection{Extra: Testing on Mandarin}
+\subsection{Extra: Testing on Japanese}
 \vspace{-1mm}
-While English employs word spacing, which makes word segmentation from written corpora fairly easy, Chinese does not. This makes Chinese word segmentation a very important problem that every language model based in Chinese needs to face. We trained a bigram model on Wikipedia Mandarin data and tested it on Zhang Lang's corpus to come up with the following word segmentation, a snapshot of which is in Fig~\ref{fig:figure6}.
+While English employs word spacing, which makes word segmentation from written corpora fairly easy, Japanese does not. This makes Japanese word segmentation a very important problem that every language model based in Japanese needs to face. We trained a bigram model on Wikipedia Japanese data and tested it on Zhang Lang's corpus to come up with the following word segmentation, a snapshot of which is in Fig~\ref{fig:figure6}.
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\columnwidth]{figures/mandarin_data.png}
-  \caption{Mandarin Word Segmentation}~\label{fig:figure6}
+  \includegraphics[width=\columnwidth]{figures/Japanese_data.png}
+  \caption{Japanese Word Segmentation}~\label{fig:figure6}
 %   \vspace{-3mm}
 \end{figure}
 % \vspace{-10mm}
@@ -278,7 +278,7 @@ Even though the algorithm used for this is fairly simple, we can still see a rea
 \section{Conclusion}
 \vspace{-1mm}
 In this paper, we have detailed how the computational model based on \citet{Saffran1996}'s infant learning experiment, as well as those based on \citet{segaran_hammerbacher_2009}, and \citet{Venkataraman}
-function, how they are implemented, and how they perform on the segmentation task given varying kinds of inputs---whether it be nonce words, English, or Mandarin. We have also analysed how these models relate with the human intuition and cognitive experiments. Finally, we discussed some of the advantages and disadvantages of these models, especially in relation to human cognition, as well as ways to improve on the models and directions for future work.
+function, how they are implemented, and how they perform on the segmentation task given varying kinds of inputs---whether it be nonce words, English, or Japanese. We have also analysed how these models relate with the human intuition and cognitive experiments. Finally, we discussed some of the advantages and disadvantages of these models, especially in relation to human cognition, as well as ways to improve on the models and directions for future work.
 \vspace{-2mm}
 \section{Future Work}
 \vspace{-1mm}
