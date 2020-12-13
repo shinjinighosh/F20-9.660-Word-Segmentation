@@ -72,11 +72,13 @@ def get_grammar():   # TODO: How to get the probabilities, from the stream above
         s = generate_speech_stream(n_words=3)
         syllables = s.split()
         for i, syllable in enumerate(syllables):
-            if i < len(syllables) - 1:
-                lhs = Nonterminal(f"begin_{syllable}")
-                rhs = [syllable]
-                new_production = Production(lhs=lhs, rhs=rhs)
-                productions.append(new_production)
+            productions.append(Production(Nonterminal("Syllable"), [syllable])) #adding Syllable -> 'tu' kinds of rule
+            
+            # if i < len(syllables) - 1:
+            #     lhs = Nonterminal(f"begin_{syllable}")
+            #     rhs = [syllable]
+            #     new_production = Production(lhs=lhs, rhs=rhs)
+            #     productions.append(new_production)
             
         # productions.append(generate_speech_stream(n_words=5))
 
