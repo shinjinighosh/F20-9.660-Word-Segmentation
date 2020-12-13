@@ -29,23 +29,21 @@ print(len(pcfg_prods))
 # print(grammar.productions())
 
 parser = nltk.parse.BottomUpChartParser(grammar)
-# sentence = "da ro pi go la tu"
-sentence = "da tu go pi la"
+sentence = "da ro pi go la tu"
+# sentence = "da tu go pi la"
 tokens = sentence.split()
 
 parsers = [
-    ViterbiParser(grammar),
+    # ViterbiParser(grammar),
     pchart.InsideChartParser(grammar),
     pchart.RandomChartParser(grammar),
     pchart.UnsortedChartParser(grammar),
-    pchart.LongestChartParser(grammar),
-    pchart.InsideChartParser(grammar, beam_size=len(tokens) + 1)
+    pchart.LongestChartParser(grammar)
+    # pchart.InsideChartParser(grammar, beam_size=len(tokens) + 1)
 ]
 
 # for tree in parser.parse(tokens):
 #     tree.pretty_print()
-
-
 
 times = []
 average_p = []
@@ -90,7 +88,7 @@ print('%19s      |%11s%11d%19.14f' % ('(All Parses)', 'n/a', len(parses), p))
 print()
 
 # for parse in parses:
-    # print(parse)
-    # break
+# print(parse)
+# break
 
-print("Maximum probability is", max_p)
+# print("Maximum probability is", max_p)
