@@ -8,6 +8,7 @@ word_list = ["tiduko", "golatu", "daropi"]# "pabiku",
 syllable_list = ["pa", "bi", "ku", "ti", "du", "ko", "go", "la", "tu", "da", "ro", "pi"] #TODO
 
 speech_stream = [] #randomly take words from word list, split into syllables (just take 2 letters each), concatenate
+
 def generate_speech_stream(finish_prob = None, n_words =None):
     assert n_words is None or finish_prob is None, "only use n_words when the number of words is deterministic (so no finish_prob should be defined)"
     s = ""
@@ -24,6 +25,13 @@ def generate_speech_stream(finish_prob = None, n_words =None):
     # for word in shuffled_words:
 
 # use induce pcfg to get grammar
+productions = []
+for iteration in range(10):
+    productions.append(generate_speech_stream(n_words=5))
+
+S = Nonterminal("Sentence")
+induced_pcfg = nltk.induce_pcfg(S, productions)
+
 def get_grammar():   # TODO: How to get the probabilities, from the stream above? or is the string above only to test inference
     grammar = nltk.PCFG.fromstring(""" 
     Sentence -> Words [1.0]
