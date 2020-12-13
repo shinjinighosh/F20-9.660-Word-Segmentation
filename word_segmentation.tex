@@ -222,7 +222,7 @@ While English employs word spacing, which makes word segmentation from written c
 %   \vspace{-3mm}
 \end{figure}
 % \vspace{-10mm}
-\section{A statistical approach}
+\section{A Statistical Approach}
 
 Unlike the PCFG approach, \citet{Venkataraman}'s model relies more on the relative frequency of certain words and on the probability that a word $w_i$ appears given that some previous words $w_1, w_2, \dots w_{i-1}$ have already appeared. It computes the most likely segmentation of a sentence (or \textit{utterance}) using a dynamic programming search method, known as the viterbi algorithm (\citet{viterbi}). For this work, we focus on phonemes' frequencies in each utterance and also in \texttt{i}-grams to take into consideration the relative frequency that sequences of words appearing in our corpus. Venkataraman's model focuses on $i= 1, 2, 3$.
 % \vspace{-3mm}
