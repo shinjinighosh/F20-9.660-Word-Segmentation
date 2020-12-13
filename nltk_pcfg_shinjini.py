@@ -9,7 +9,7 @@ from functools import reduce
 
 grammar = PCFG.fromstring("""
 Sentence -> Words [1.0]
-Words -> Word Words [1.0]
+Words -> Word Words [0.8] | Word [0.2]
 Word -> Syllables [1.0]
 Syllables -> Syllable Syllables	 [0.8] | Syllable [0.2]
 Syllable -> 'tu' [0.083]
