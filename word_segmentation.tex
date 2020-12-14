@@ -88,9 +88,9 @@ current state-of-the-art language models, which fail on natural language underst
 
 \section{Saffran Revisited, Computationally}
 % \vspace{-6mm}
-\citet{Saffran1996}'s groundbreaking paper delves into statistical learning by 8-month-old infants, and aims to probe the one of the very basic human cognitive tasks, a fundamental task accomplished by almost every child in the world---segmentation of words from fluent speech. The authors state that `successful' word segmentation by the infants, based on only 2 minutes of speech exposure, suggest that they have access to a powerful mechanism for computing the statistical properties of language input. This is a very important observation in building computational models of cognition regarding word segmentation, especially when coupled with the fact that there exists complex and widely varying acoustic structure of speech in different languages and hence, there is no invariant acoustic cue to word boundaries present in all languages.
+\citet{Saffran1996}'s groundbreaking paper delves into statistical learning by 8-month-old infants, and aims to probe the one of the very basic human cognitive tasks, a fundamental task accomplished by almost every child in the world---segmentation of words from fluent speech. The authors state that `successful' word segmentation by the infants, based on only 2 minutes of speech exposure, suggests that they have access to a powerful mechanism for computing the statistical properties of language input. This is a very important observation in building computational models of cognition regarding word segmentation, especially when coupled with the fact that there exists complex and widely varying acoustic structure of speech in different languages and hence, there is no invariant acoustic cue to word boundaries present in all languages.
 
-In the class goal of `reverse-engineering the human mind', Saffran et al.'s observations are crucial as we set out to use knowledge of how human intelligence works in order to build more human-like intelligence systems [Class Slides, Lecture 1]. As outlined in \citet{Goodman2014ConceptsIA}, \citet{Goodmand&Tenenbaum2016}, \citet{Tenenbaum2012} and multiple other papers, the probabilistic language of thought hypothesis believes that concepts have a language-like compositionality and encode probabilistic knowledge, thereupon relying on Bayesian inference for production. We also look at how \citet{GOLDWATER200921} approaches the word segmentation problem probabilistically, relying on word context. Extending from the word learning concepts of Lectures 1 and 5, and the categorization concepts of Lectures 22 and 23, we try to revisit Saffran et al.'s experiment, this time computationally.
+In the class goal of `reverse-engineering the human mind', Saffran et al.'s observations are crucial as we set out to use knowledge of how human intelligence works in order to build more human-like intelligence systems [Class Slides, Lecture 1]. As outlined in \citet{Goodman2014ConceptsIA}, \citet{Goodmand&Tenenbaum2016}, \citet{Tenenbaum2012} and multiple other papers, the probabilistic language of thought hypothesis believes that concepts have a language-like compositionality and encode probabilistic knowledge, thereupon relying on Bayesian inference for production. We also look at how \citet{GOLDWATER200921} approach the word segmentation problem probabilistically, relying on word context. Extending from the word learning concepts of Lectures 1 and 5, and the categorization concepts of Lectures 22 and 23, we try to revisit Saffran et al.'s experiment, this time computationally.
 % \vspace{-8mm}
 \subsection{Modeling with Probabilistic Context Free Grammars (PCFGs)}
 % \vspace{-4mm}
@@ -224,28 +224,33 @@ While English employs word spacing, which makes word segmentation from written c
 % \vspace{-10mm}
 \section{A Statistical Approach}
 
-Unlike the PCFG approach, \citet{Venkataraman}'s model relies more on the relative frequency of certain words and on the probability that a word $w_i$ appears given that some previous words $w_1, w_2, \dots w_{i-1}$ have already appeared. It computes the most likely segmentation of a sentence (or \textit{utterance}) using a dynamic programming search method, known as the viterbi algorithm (\citet{viterbi}). For this work, we focus on phonemes' frequencies in each utterance and also in \texttt{i}-grams to take into consideration the relative frequency that sequences of words appearing in our corpus. Venkataraman's model focuses on $i= 1, 2, 3$.
+Unlike the PCFG approach, \citet{Venkataraman}'s model relies more on the relative frequency of certain words and on the probability that a word $w_i$ appears given that some previous words $w_1, w_2, \dots w_{i-1}$ have already appeared. It computes the most likely segmentation of a sentence (or \textit{utterance}) using a dynamic programming search method, known as the viterbi algorithm (\citet{viterbi}). For this work, we focus on phonemes' frequencies in each utterance and also in \texttt{i}-grams to take into consideration the relative frequency that sequences of words appearing in our corpus. Venkataraman's model focuses on $i= 1, 2, 3$. Unlike the focus of the previous models we have seen so far, we will focus on the \textbf{algorithmic level} description of this model. 
 % \vspace{-3mm}
 \subsection{Dataset}
-We use the same dataset as \citet{Brent}, that consists of transcripts made by Bernstein-Ratner (1987) of the CHILDES Database (MacWhinney and Snow 1985). This dataset consists of nine mothers talking freely to their children (13-21 months old), which we hope will give us a good estimate on how children understand a speech stream. 
-
+We use the same dataset as \citet{Brent}, that consists of transcripts made by Bernstein-Ratner (1987) of the CHILDES Database (MacWhinney and Snow 1985). This dataset consists of nine mothers talking freely to their children (13-21 months old), which we hope will give us a good estimate on how children understand a speech stream. Fig~\ref{fig:fig7} shows some examples of this dataset.
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.8]{figures/venkataram_corpus_example.PNG}
+    \caption{Twenty randomly chosen examples from the input corpus, written with their orthographic transcripts. Taken from \citet{Venkataraman}}
+    \label{fig:fig7}
+\end{figure}
 \subsection{Algorithm}
-To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig~\ref{fig:fig7} represents what we would do if we were trying to segment the word $s = abcde$
+To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig~\ref{fig:fig8} represents what we would do if we were trying to segment the word $s = abcde$
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_seg_example.PNG}
     \caption{Example to segment s = abcde. Taken from \citet{Venkataraman}}
-    \label{fig:fig7}
+    \label{fig:fig8}
 \end{figure}
 
-where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig~\ref{fig:fig8}.
+where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig~\ref{fig:fig9}.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_evalword.PNG}
     \caption{Description of \texttt{evalWord}. If the word is novel, then the model uses a distribution over the phonemes of the word. Taken from \citet{Venkataraman}}
-    \label{fig:fig8}
+    \label{fig:fig9}
 \end{figure}
 
 \subsection{Results}
@@ -271,8 +276,12 @@ baselinestretch=1.2
     For #WAts DIs#, the segmentation is WAt#s DIs# 
     """
 \end{minted}
-Even though the algorithm used for this is fairly simple, we can still see a reasonable segmentation for those utterances and thus conclude the usefulness of this method. In order to obtain a more accurate segmenter, we could try using a larger input corpus (currently it contains 9790 utterances and 33,399 words) and have longer utterances to update our model with more significant data. 
-% \section{Results and Discussion}
+Even though the algorithm used for this is fairly simple, we can still see a reasonable segmentation for those utterances and thus conclude the usefulness of this method.
+\subsection{Model improvement}
+In order to obtain a more accurate segmenter, we could try using a larger input corpus (currently it onlye contains 9790 utterances and 33,399 words) and have longer utterances to update our model with more significant data. 
+
+On the other hand, we could change the way that \textbf{evalWord} works when finding novel words. Currently, it focuses on the statistical frequency of the phonemes of the word. We could, for example, have this value be drawn from another probability distribution instead. In Lecture 3, we are told that {\it{A representation of degrees of belief in terms of probability theory is necessary to cohere with common sense}}, which is exactly what we are trying to achieve. As such, we believe that, for example, putting prior probabilities on the types of words our model tries to learn will significantly improve its performance. We could use this technique to prevent the model from picking segmentations that are not phonotactically correct. This is similar in nature to the discussion in class around priors in The Number Game, where we assigned low priors to hypotheses that go against ``common sense".
+% \section{Resultle' s and Discussion}
 % \section{Model Comparison}
 \vspace{-2mm}
 \section{Conclusion}
