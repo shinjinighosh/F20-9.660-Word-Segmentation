@@ -88,7 +88,7 @@ current state-of-the-art language models, which fail on natural language underst
 
 \section{Saffran Revisited, Computationally}
 % \vspace{-6mm}
-\citet{Saffran1996}'s groundbreaking paper delves into statistical learning by 8-month-old infants, and aims to probe the one of the very basic human cognitive tasks, a fundamental task accomplished by almost every child in the world---segmentation of words from fluent speech. The authors state that `successful' word segmentation by the infants, based on only 2 minutes of speech exposure, suggests that they have access to a powerful mechanism for computing the statistical properties of language input. This is a very important observation in building computational models of cognition regarding word segmentation, especially when coupled with the fact that there exists complex and widely varying acoustic structure of speech in different languages and hence, there is no invariant acoustic cue to word boundaries present in all languages.
+\citet{Saffran1996}'s groundbreaking paper delves into statistical learning by 8-month-old infants, and aims to probe one of the very basic human cognitive tasks, a fundamental task accomplished by almost every child in the world---segmentation of words from fluent speech. The authors state that `successful' word segmentation by the infants, based on only 2 minutes of speech exposure, suggests that they have access to a powerful mechanism for computing the statistical properties of language input. This is a very important observation in building computational models of cognition regarding word segmentation, especially when coupled with the fact that there exists complex and widely varying acoustic structure of speech in different languages and hence, there is no invariant acoustic cue to word boundaries present in all languages.
 
 In the class goal of `reverse-engineering the human mind', Saffran et al.'s observations are crucial as we set out to use knowledge of how human intelligence works in order to build more human-like intelligence systems [Class Slides, Lecture 1]. As outlined in \citet{Goodman2014ConceptsIA}, \citet{Goodmand&Tenenbaum2016}, \citet{Tenenbaum2012} and multiple other papers, the probabilistic language of thought hypothesis believes that concepts have a language-like compositionality and encode probabilistic knowledge, thereupon relying on Bayesian inference for production. We also look at how \citet{GOLDWATER200921} approach the word segmentation problem probabilistically, relying on word context. Extending from the word learning concepts of Lectures 1 and 5, and the categorization concepts of Lectures 22 and 23, we try to revisit Saffran et al.'s experiment, this time computationally.
 % \vspace{-8mm}
@@ -97,7 +97,7 @@ In the class goal of `reverse-engineering the human mind', Saffran et al.'s obse
 We use a Probabilistic Context Free Grammar to computationally explore Saffran et al.'s experiment, and see how our probabilistic model performs in comparison with human infants. In class, we saw how PCFGs perform Bayesian inference for the sentence `I shot an elephant in my pajamas', and what the various valid parses for this sentence are. In \citet{Johnson2007BayesianIF}, Bayesian inference for PCFGs via MCMC is used for morphology. We adapt a similar ideology to word segmentation as follows, where a PCFG captures word segmentation as inference.
 
 \subsection{PCFG Setup}
-We modify the usual PCFG setup as follows. Instead of having an input sentence, we have an input speech stream, segmented into syllables. We assume that the smallest part of speech that infants can discern without external knowledge is syllables (Saffran et al. also take 4-syllabic words and look at probability transitions between word boundaries in infants), and our concern is how they break this syllable stream into words. We then segment the speech stream aka `Sentence' into words, which further break into more words or a single word, which break into syllable(s).
+We modify the usual PCFG setup as follows. Instead of having an input sentence, we have an input speech stream, segmented into syllables. We assume that the smallest part of speech that infants can discern without external knowledge is syllables (Saffran et al. also take tri-syllabic words and look at probability transitions between word boundaries in infants), and our concern is how they break this syllable stream into words. We then segment the speech stream aka `Sentence' into words, which further break into more words or a single word, which break into syllable(s).
 
 Our sample PCFG thus looks as follows.
 \vspace{-3mm}
@@ -129,7 +129,7 @@ linenos
 
 \end{minted}
 
-Just like Saffran et al., we generate speech stream by randomly concatenating words from the input vocabulary. The syllable probabilities are then inferred from the speech stream, and the word/syllable break probabilities are a parameter that we tweak and see the results with. We then investigate the various word parses (and corresponding) that these PCFGs give us, as well as the probabilities of those parses. A sample parse tree with high probability is shown in Fig~\ref{fig:figure1}---it shows us how given a stream of syllables, our PCFG breaks down the input `da ro pi go la tu' into two words `daropi' and `golatu'. This is one of the ``hard" input examples for the vocabulary consisting of the words ``pigola", ``golatu", and ``daropi", because the `part-word' ``pigola" spanned the boundary between `daropi\#golatu'. Below that, we have another parse tree in Fig~\ref{fig:figure2}---one with a low probability assigned by the parser, and clearly not adequate. We hypothesize that humans have access to such computing mechanism, and select a high probability parse tree to use in their daily lives.
+Just like Saffran et al., we generate speech stream by randomly concatenating words from the input vocabulary (of 2 minutes = 180 words). The syllable probabilities are then inferred from the speech stream, and the word/syllable break probabilities are a parameter that we tweak and see the results with. We then investigate the various word parses (and corresponding) that these PCFGs give us, as well as the probabilities of those parses. A sample parse tree with high probability is shown in Fig~\ref{fig:figure1}---it shows us how given a stream of syllables, our PCFG breaks down the input `da ro pi go la tu' into two words `daropi' and `golatu'. This is one of the ``hard" input examples for the vocabulary consisting of the words ``pigola", ``golatu", and ``daropi", because the `part-word' ``pigola" spanned the boundary between `daropi\#golatu'. Below that, we have another parse tree in Fig~\ref{fig:figure2}---one with a low probability assigned by the parser, and clearly not adequate. We hypothesize that humans have access to such computing mechanism, and select a high probability parse tree to use in their daily lives.
 
 % \begin{figure}[h]
 %     \centering
@@ -184,7 +184,7 @@ We also try four different parsers and do a comparative analysis of the time tak
 
 \vspace{-3mm}
 \subsection{Results}
-We see that just as Saffran et al. predicted for human infant judgements, for a majority of our randomized experiments, the PCFGs also pick up on a higher transitional probability between two sounds in a word, as compared to two sounds across word boundaries. We thus believe that a probabilistic model can be built to pretty accurately pick up on cues similar to human cognition, while recognising the fact that this method works well only on smaller lexicons and as the number of words increase, the number of rules in a PCFG also increase drastically.
+We see that just as Saffran et al. predicted for human infant judgements, for a majority of our randomized experiments, the PCFGs also pick up on a higher transitional probability between two sounds in a word, as compared to two sounds across word boundaries. We thus believe that a probabilistic model can be built to accurately pick up on cues similar to human cognition, while recognising the fact that this method works well only on smaller lexicons and as the number of words increase, the number of rules in a PCFG also increase drastically.
 
 \section{Dynamic Programming with Probabilistic \texttt{n}-gram Modeling}
 In addition to the PCFG modeling, we then go on to other probabilistic modeling techniques for word segmentation. We use a model implemented along the lines of Peter Norvig's in the book `Beautiful Data' by \citet{segaran_hammerbacher_2009}.
@@ -203,7 +203,7 @@ We use two probabilistic models---one based on unigrams and the other on bigrams
 \vspace{-1mm}
 \subsection{Testing and Results}
 \vspace{-1mm}
-We create a unit test file, with segmentations of text stream, both straightforward and ambiguous, e.g., `choosespain' can be segmented both as `choose spain' or `chooses pain'. If we believe that humans use statistical inference, then we can assume that the former would be more probable than the latter, based on conditional probability counts of the true. This is a hypothesis we test in our model, and it indeed turns out to be true. A snapshot of our test file is in Fig~\ref{fig:figure5}. Overall, while this model performs pretty well, there remain controversies as to how well such models relate to human cognitive processes.
+We create a unit test file, with segmentations of text stream, both straightforward and ambiguous, e.g., `choosespain' can be segmented both as `choose spain' or `chooses pain'. If we believe that humans use statistical inference, then we can assume that the former would be more probable than the latter, based on conditional probability counts of the true. This is a hypothesis we test in our model, and it indeed turns out to be true. A snapshot of our test file is in Fig~\ref{fig:figure5}. Overall, while this model performs well, there remain controversies as to how well such models relate to human cognitive processes.
 \vspace{-1mm}
 \begin{figure}[h!]
   \centering
@@ -224,33 +224,40 @@ While English employs word spacing, which makes word segmentation from written c
 % \vspace{-10mm}
 \section{A Statistical Approach}
 
-Unlike the PCFG approach, \citet{Venkataraman}'s model relies more on the relative frequency of certain words and on the probability that a word $w_i$ appears given that some previous words $w_1, w_2, \dots w_{i-1}$ have already appeared. It computes the most likely segmentation of a sentence (or \textit{utterance}) using a dynamic programming search method, known as the viterbi algorithm (\citet{viterbi}). For this work, we focus on phonemes' frequencies in each utterance and also in \texttt{i}-grams to take into consideration the relative frequency that sequences of words appearing in our corpus. Venkataraman's model focuses on $i= 1, 2, 3$. Unlike the focus of the previous models we have seen so far, we will focus on the \textbf{algorithmic level} description of this model. 
+We turn our focus to \citet{Venkataraman}'s model, which relies on the probability that a word $w_i$ appears given that some previous words $w_{i-1}, w_{i-2}, \dots$ have already appeared. We estimate the necessary \texttt{n}-grams probabilities in function of other \texttt{n}-grams of lower order and, when we get to \texttt{1}-grams, we back off to the relative frequencies of the phonemes of a given word. The model only focuses on \texttt{1}-grams, \texttt{2}-grams, and \texttt{3}-grams, though this could be extended if necessary. Fig~\ref{fig:fig7} shows a complete description of how we calculate these probabilities. Unlike the focus of the previous models we have seen so far, we will focus on the \textbf{algorithmic level} description of this model.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.8]{figures/venkataraman_1.PNG}
+    \caption{$N_i$ denotes the number of distincts \texttt{i}-grams, $S_i$ is the some of their frequencies, C() is the count function, r() denotes the relative frequency function. Taken from \citet{Venkataraman}}
+    \label{fig:fig7}
+\end{figure}
 % \vspace{-3mm}
 \subsection{Dataset}
-We use the same dataset as \citet{Brent}, that consists of transcripts made by Bernstein-Ratner (1987) of the CHILDES Database (MacWhinney and Snow 1985). This dataset consists of nine mothers talking freely to their children (13-21 months old), which we hope will give us a good estimate on how children understand a speech stream. Fig~\ref{fig:fig7} shows some examples of this dataset.
+We use the same dataset as \citet{Brent}, that consists of transcripts made by Bernstein-Ratner (1987) of the CHILDES Database (MacWhinney and Snow 1985). This dataset consists of nine mothers talking freely to their children (13-21 months old), which we hope will give us a good estimate on how children understand a speech stream. Fig~\ref{fig:fig8} shows some examples of this dataset.
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_corpus_example.PNG}
     \caption{Twenty randomly chosen examples from the input corpus, written with their orthographic transcripts. Taken from \citet{Venkataraman}}
-    \label{fig:fig7}
+    \label{fig:fig8}
 \end{figure}
 \subsection{Algorithm}
-To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig~\ref{fig:fig8} represents what we would do if we were trying to segment the word $s = abcde$
+To find word boundaries in a given utterance, we try to split it at a given place and check what the \textit{score} is. Then we take the lowest score of all the segmentations.  For example, Fig~\ref{fig:fig9} represents what we would do if we were trying to segment the word $s = abcde$
 
 \begin{figure}[h]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_seg_example.PNG}
     \caption{Example to segment s = abcde. Taken from \citet{Venkataraman}}
-    \label{fig:fig8}
+    \label{fig:fig9}
 \end{figure}
 
-where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig~\ref{fig:fig9}.
+where \textbf{seg} is our function of interest and \textbf{word} is a way of scoring each word we find. A pseudocode description of that function is shown in Fig~\ref{fig:fig10}.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.8]{figures/venkataram_evalword.PNG}
     \caption{Description of \texttt{evalWord}. If the word is novel, then the model uses a distribution over the phonemes of the word. Taken from \citet{Venkataraman}}
-    \label{fig:fig9}
+    \label{fig:fig10}
 \end{figure}
 
 \subsection{Results}
